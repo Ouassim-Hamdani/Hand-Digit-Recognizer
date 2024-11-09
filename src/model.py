@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math,os
 from sklearn.metrics import accuracy_score,confusion_matrix
-from utils import check_and_normalize
+from utils import check_and_normalize,check_channels
 class EnsembledModel:
     """
     An ensemble model that combines predictions from two pre-trained and fine-tuned models: VGG19 and ResNet50.
@@ -48,6 +48,7 @@ class EnsembledModel:
             numpy.ndarray: The predicted class probabilities or labels.
         """
         X = check_and_normalize(X)
+        X = check_channels(X)
         y_pred_1 = self.model.predict(X)
         y_pred_2 = self.model_2.predict(X)
         y_pred = (y_pred_1+y_pred_2)/2
